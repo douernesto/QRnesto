@@ -1,0 +1,44 @@
+{
+    "configurations": [
+        {
+            "type": "swift",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:QRnesto}",
+            "name": "Debug QRnesto",
+            "target": "QRnesto",
+            "configuration": "debug",
+            "preLaunchTask": "swift: Build Debug QRnesto"
+        },
+        {
+            "type": "swift",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:QRnesto}",
+            "name": "Release QRnesto",
+            "target": "QRnesto",
+            "configuration": "release",
+            "preLaunchTask": "swift: Build Release QRnesto"
+        },
+        {
+            "type": "swift",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:QRnesto}",
+            "name": "Debug QRnesto",
+            "target": "QRnesto",
+            "configuration": "debug",
+            "preLaunchTask": "swift: Build Debug QRnesto"
+        },
+        {
+            "type": "swift",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:QRnesto}",
+            "name": "Release QRnesto",
+            "target": "QRnesto",
+            "configuration": "release",
+            "preLaunchTask": "swift: Build Release QRnesto"
+        }
+    ]
+}
