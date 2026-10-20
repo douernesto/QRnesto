@@ -43,5 +43,6 @@ Before finishing a change, make sure `swift build` succeeds. Run `swift test` to
 
 ## Git and PRs
 
+- Never commit or push directly to `main`. Always work on a branch and open a PR.
 - Open PRs from a `feature/`, `bugfix/` or `hotfix/` branch, not from `main`.
 - The only author name to use is `douernesto`, in files, commit authorship and PRs.
