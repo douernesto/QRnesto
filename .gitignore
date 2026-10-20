@@ -1,3 +1,97 @@
+# --- Swift Package Manager ---
 .build/
+.swiftpm/
+Packages/
+Package.resolved.bak
+*.xcodeproj/xcuserdata/
+*.xcworkspace/xcuserdata/
+
+# --- Project build output ---
 build/
+DerivedData/
+*.app
+*.dSYM/
+*.dSYM.zip
+*.xcarchive
+*.ipa
+*.dmg
+*.pkg
+
+# --- Xcode ---
+xcuserdata/
+*.xcuserstate
+*.xcscmblueprint
+*.hmap
+*.ipa
+*.moved-aside
+*.pbxuser
+*.mode1v3
+*.mode2v3
+*.perspectivev3
+
+# --- macOS ---
 .DS_Store
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+.fseventsd
+.DocumentRevisions-V100
+.TemporaryItems
+Icon?
+
+# --- Editors and IDEs ---
+# Keep shared VS Code launch/task config, ignore personal settings
+.vscode/*
+!.vscode/launch.json
+!.vscode/tasks.json
+!.vscode/extensions.json
+.idea/
+*.swp
+*.swo
+*~
+
+# --- Secrets and credentials (never commit) ---
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p8
+*.p12
+*.pfx
+*.cer
+*.mobileprovision
+*.provisionprofile
+*.keychain
+*.keychain-db
+id_rsa*
+id_ed25519*
+credentials*.json
+service-account*.json
+.netrc
+.npmrc
+.pypirc
+
+# --- Logs, crash reports and temp files ---
+*.log
+*.ips
+*.crash
+*.tmp
+*.temp
+*.bak
+tmp/
+temp/
+
+# --- Test and coverage output ---
+*.profraw
+*.profdata
+coverage/
+.coverage
+TestResults/
+*.xcresult
+
+# --- AI agent local state ---
+.claude/settings.local.json
+CLAUDE.local.md
