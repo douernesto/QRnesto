@@ -90,6 +90,10 @@ Sources/
 - The camera scanner feeds live frames to the same decoder, about six times a second. New codes are added to the top of the results list, and a code you have already scanned is not added twice.
 - `PayloadParser` recognises a payload by its prefix (`WIFI:`, `BEGIN:VCARD`, `otpauth://`, and so on) and falls back to plain text.
 
+## Contributing
+
+Never commit or push directly to `main`. Make every change on a `feature/`, `bugfix/` or `hotfix/` branch and open a pull request.
+
 ## Known limitations
 
 - Payment QR formats (for example EMVCo or PIX) are shown as plain text, not parsed into fields.
