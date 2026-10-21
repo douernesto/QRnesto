@@ -16,6 +16,9 @@ struct QRnestoApp: App {
                 .frame(minWidth: 640, minHeight: 460)
         }
         .commands {
+            CommandGroup(replacing: .appInfo) {
+                Button("About QRnesto") { showAbout() }
+            }
             CommandGroup(after: .newItem) {
                 Button("Open Image…") { model.openFile() }.keyboardShortcut("o")
                 Button("Paste Image") { model.pasteImage() }.keyboardShortcut("v", modifiers: [.command, .shift])
@@ -23,5 +26,19 @@ struct QRnestoApp: App {
                 Button("Toggle Camera") { model.toggleCamera() }.keyboardShortcut("k")
             }
         }
+    }
+
+    private func showAbout() {
+        let credits = NSMutableAttributedString(
+            string: "Scan QR codes from the camera, an image or your screen, and see what they contain as labelled fields.\n\nEverything is decoded on your Mac. Links are never opened automatically.\n\n",
+            attributes: [.font: NSFont.systemFont(ofSize: 11), .foregroundColor: NSColor.labelColor])
+        credits.append(NSAttributedString(
+            string: "github.com/douernesto/QRnesto",
+            attributes: [.font: NSFont.systemFont(ofSize: 11),
+                         .link: URL(string: "https://github.com/douernesto/QRnesto")!]))
+        credits.addAttribute(.paragraphStyle, value: {
+            let style = NSMutableParagraphStyle(); style.alignment = .center; return style
+        }(), range: NSRange(location: 0, length: credits.length))
+        NSApplication.shared.orderFrontStandardAboutPanel(options: [.credits: credits])
     }
 }
