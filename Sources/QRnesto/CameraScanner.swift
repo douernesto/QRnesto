@@ -61,6 +61,7 @@ final class CameraScanner: NSObject, AVCaptureVideoDataOutputSampleBufferDelegat
 
 struct CameraPreview: NSViewRepresentable {
     let session: AVCaptureSession
+    let mirrored: Bool
 
     func makeNSView(context: Context) -> NSView {
         let view = NSView()
@@ -72,5 +73,10 @@ struct CameraPreview: NSViewRepresentable {
         return view
     }
 
-    func updateNSView(_ view: NSView, context: Context) {}
+    func updateNSView(_ view: NSView, context: Context) {
+        guard let connection = (view.layer as? AVCaptureVideoPreviewLayer)?.connection,
+              connection.isVideoMirroringSupported else { return }
+        connection.automaticallyAdjustsVideoMirroring = false
+        connection.isVideoMirrored = mirrored
+    }
 }
