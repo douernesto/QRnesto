@@ -71,8 +71,9 @@ macOS asks the first time you use each feature. The app only sees the camera or 
 
 ```
 Package.swift                 Swift package: QRCore library + QRnesto app
-build_app.sh                  Wraps the binary into QRnesto.app with an Info.plist and signs it
+build_app.sh                  Wraps the binary into QRnesto.app with an Info.plist and icon, and signs it
 Makefile                      Developer commands
+Resources/AppIcon.png         1024x1024 app icon, converted to .icns at build time
 Sources/
   QRCore/
     QRDecoder.swift           Finds QR codes in images and camera frames (Vision)
@@ -99,4 +100,3 @@ Never commit or push directly to `main`. Make every change on a `feature/`, `bug
 - Payment QR formats (for example EMVCo or PIX) are shown as plain text, not parsed into fields.
 - Raw binary payloads are shown as hex, not interpreted.
 - There are no automated tests in the repo yet.
-- The app has no custom icon.
