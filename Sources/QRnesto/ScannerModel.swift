@@ -11,6 +11,7 @@ final class ScannerModel: ObservableObject {
     @Published var status = "Drop an image, paste one, or capture a region of your screen."
 
     @Published var cameraOn = false
+    @Published var mirrored = false
     let camera = CameraScanner()
 
     func toggleCamera() {
@@ -39,6 +40,10 @@ final class ScannerModel: ObservableObject {
         camera.stop()
         cameraOn = false
         status = results.isEmpty ? "Camera stopped." : "Camera stopped. \(results.count) code(s) scanned."
+    }
+
+    func remove(_ payload: ParsedPayload) {
+        results.removeAll { $0.id == payload.id }
     }
 
     private func cameraDetected(_ raw: String) {

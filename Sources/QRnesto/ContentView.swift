@@ -13,8 +13,15 @@ struct ContentView: View {
                         .strokeBorder(targeted ? Color.accentColor : .secondary.opacity(0.4),
                                       style: StrokeStyle(lineWidth: 2, dash: [6]))
                     if model.cameraOn {
-                        CameraPreview(session: model.camera.session)
+                        CameraPreview(session: model.camera.session, mirrored: model.mirrored)
                             .clipShape(RoundedRectangle(cornerRadius: 12))
+                            .overlay(alignment: .topTrailing) {
+                                Button { model.mirrored.toggle() } label: {
+                                    Image(systemName: "arrow.left.and.right.righttriangle.left.righttriangle.right")
+                                }
+                                .help(model.mirrored ? "Unmirror preview" : "Mirror preview")
+                                .padding(8)
+                            }
                     } else if let image = model.image {
                         Image(nsImage: image).resizable().scaledToFit().padding(8)
                     } else {
@@ -48,7 +55,9 @@ struct ContentView: View {
 
             ScrollView {
                 VStack(alignment: .leading, spacing: 16) {
-                    ForEach(model.results) { ResultCard(payload: $0) }
+                    ForEach(model.results) { payload in
+                        ResultCard(payload: payload) { model.remove(payload) }
+                    }
                     if model.results.isEmpty {
                         Text("Decoded content will appear here.").foregroundStyle(.secondary)
                     }
@@ -63,12 +72,18 @@ struct ContentView: View {
 
 struct ResultCard: View {
     let payload: ParsedPayload
+    let onRemove: () -> Void
     @State private var showRaw = false
     @State private var revealed = Set<UUID>()
 
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
-            Label(payload.kind, systemImage: payload.symbol).font(.headline)
+            HStack {
+                Label(payload.kind, systemImage: payload.symbol).font(.headline)
+                Spacer()
+                Button(action: onRemove) { Image(systemName: "xmark") }
+                    .buttonStyle(.borderless).help("Remove")
+            }
 
             ForEach(payload.fields) { field in
                 HStack(alignment: .top) {
