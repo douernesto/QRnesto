@@ -9,7 +9,7 @@ help: ## Show this help
 	@grep -E '^[a-zA-Z_-]+:.*?## ' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "  %-14s %s\n", $$1, $$2}'
 
 check: ## Check that this Mac can build the app
-	./check_env.sh
+	scripts/check_env.sh
 
 build: ## Compile the release binary
 	swift build -c release
@@ -18,10 +18,10 @@ debug: ## Compile the debug binary
 	swift build
 
 app: ## Build the signed .app bundle for this Mac into ./build
-	./build_app.sh
+	scripts/build_app.sh
 
 universal: ## Build a universal (Apple Silicon + Intel) .app into ./build
-	UNIVERSAL=1 ./build_app.sh
+	UNIVERSAL=1 scripts/build_app.sh
 
 run: quit app ## Rebuild, stop any running copy, and launch the app
 	open "$(APP)"

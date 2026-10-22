@@ -32,7 +32,7 @@ Before finishing a change, make sure `swift build` succeeds. Run `swift test` to
 - Mark sensitive fields (passwords, OTP secrets) with `secret: true` so the UI hides them until the user clicks Show.
 - Never open links automatically. The user chooses when to open one.
 - Match the surrounding style: small files, minimal comments, no new dependencies unless needed.
-- `build_app.sh` generates `Info.plist` inline. Add new usage-description keys there (for example for a new permission), and update the Permissions table in `README.md`.
+- `scripts/build_app.sh` generates `Info.plist` inline. Add new usage-description keys there (for example for a new permission), and update the Permissions table in `README.md`.
 - Don't commit `.build/` or `build/`. Both are in `.gitignore`.
 
 ## Testing notes

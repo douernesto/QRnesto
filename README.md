@@ -76,7 +76,8 @@ macOS asks the first time you use each feature. The app only sees the camera or 
 
 ```
 Package.swift                 Swift package: QRCore library + QRnesto app
-build_app.sh                  Wraps the binary into QRnesto.app with an Info.plist and icon, and signs it
+scripts/build_app.sh          Wraps the binary into QRnesto.app with an Info.plist and icon, and signs it
+scripts/check_env.sh          Checks that this Mac can build the app (make check)
 Makefile                      Developer commands
 Resources/AppIcon.png         1024x1024 app icon, converted to .icns at build time
 Sources/
