@@ -3,10 +3,13 @@ APP      := build/$(APP_NAME).app
 BIN_NAME := QRnesto
 INSTALL_DIR ?= /Applications
 
-.PHONY: help build debug app universal run install uninstall quit logs crash-report clean
+.PHONY: help check build debug app universal run install uninstall quit logs crash-report clean
 
 help: ## Show this help
 	@grep -E '^[a-zA-Z_-]+:.*?## ' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "  %-14s %s\n", $$1, $$2}'
+
+check: ## Check that this Mac can build the app
+	./check_env.sh
 
 build: ## Compile the release binary
 	swift build -c release

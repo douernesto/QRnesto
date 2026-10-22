@@ -31,6 +31,10 @@ A native macOS app that reads QR codes and decodes their content into readable, 
 
 - macOS 13 or later
 - Swift 5.9+ toolchain. The Xcode Command Line Tools are enough; full Xcode is not required.
+- Intel or Apple Silicon. `make app` builds for the Mac you run it on; `make universal` builds both.
+- A camera, and permission to use it, for live scanning. Screen capture needs Screen Recording permission.
+
+Run `make check` to verify these before building. `make app` runs the same check first.
 
 ## Quick start
 

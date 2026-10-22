@@ -3,6 +3,8 @@
 set -euo pipefail
 cd "$(dirname "$0")"
 
+./check_env.sh
+
 # Native build by default (works on Intel and Apple Silicon). UNIVERSAL=1 builds arm64 + x86_64 and merges them with lipo.
 if [[ "${UNIVERSAL:-0}" == 1 ]]; then
   mkdir -p build
