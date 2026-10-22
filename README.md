@@ -49,7 +49,7 @@ Run `make help` for the full list.
 | Command | What it does |
 |---|---|
 | `make run` | Stop any running copy, rebuild, and launch |
-| `make app` | Build the signed `.app` into `./build` |
+| `make app` | Build the signed universal (Apple Silicon + Intel) `.app` into `./build` |
 | `make build` / `make debug` | Compile the release or debug binary only |
 | `make install` | Copy the app to `/Applications` (override with `INSTALL_DIR=~/Applications`) |
 | `make uninstall` | Remove the installed copy |
