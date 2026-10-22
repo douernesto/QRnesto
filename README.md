@@ -31,6 +31,10 @@ A native macOS app that reads QR codes and decodes their content into readable, 
 
 - macOS 13 or later
 - Swift 5.9+ toolchain. The Xcode Command Line Tools are enough; full Xcode is not required.
+- Intel or Apple Silicon. `make app` builds for the Mac you run it on; `make universal` builds both.
+- A camera, and permission to use it, for live scanning. Screen capture needs Screen Recording permission.
+
+Run `make check` to verify these before building. `make app` runs the same check first.
 
 ## Quick start
 
@@ -72,7 +76,8 @@ macOS asks the first time you use each feature. The app only sees the camera or 
 
 ```
 Package.swift                 Swift package: QRCore library + QRnesto app
-build_app.sh                  Wraps the binary into QRnesto.app with an Info.plist and icon, and signs it
+scripts/build_app.sh          Wraps the binary into QRnesto.app with an Info.plist and icon, and signs it
+scripts/check_env.sh          Checks that this Mac can build the app (make check)
 Makefile                      Developer commands
 Resources/AppIcon.png         1024x1024 app icon, converted to .icns at build time
 Sources/
