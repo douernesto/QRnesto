@@ -2,7 +2,7 @@
     "configurations": [
         {
             "type": "swift",
-            "request": "launch",
+            "request": "launch", 
             "args": [],
             "cwd": "${workspaceFolder:QRnesto}",
             "name": "Debug QRnesto",

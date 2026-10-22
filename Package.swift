@@ -7,5 +7,5 @@ let package = Package(
     targets: [
         .target(name: "QRCore"),
         .executableTarget(name: "QRnesto", dependencies: ["QRCore"]),
-    ]
+    ] 
 )
