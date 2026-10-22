@@ -15,6 +15,9 @@ struct QRnestoApp: App {
                 .environmentObject(model)
                 .frame(minWidth: 640, minHeight: 460)
         }
+        Settings {
+            SettingsView()
+        }
         .commands {
             CommandGroup(replacing: .appInfo) {
                 Button("About QRnesto") { showAbout() }
