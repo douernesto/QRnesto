@@ -3,15 +3,20 @@
 set -euo pipefail
 cd "$(dirname "$0")"
 
-# Build each architecture separately and merge them (multi-arch `swift build` needs Xcode).
-for arch in arm64 x86_64; do
-  swift build -c release --triple "$arch-apple-macosx13.0"
-done
-BIN="build/QRnesto-universal"
-mkdir -p build
-lipo -create -output "$BIN" \
-  "$(swift build -c release --triple arm64-apple-macosx13.0 --show-bin-path)/QRnesto" \
-  "$(swift build -c release --triple x86_64-apple-macosx13.0 --show-bin-path)/QRnesto"
+# Native build by default (works on Intel and Apple Silicon). UNIVERSAL=1 builds arm64 + x86_64 and merges them with lipo.
+if [[ "${UNIVERSAL:-0}" == 1 ]]; then
+  mkdir -p build
+  BIN="build/QRnesto-universal"
+  slices=()
+  for arch in arm64 x86_64; do
+    swift build -c release --triple "$arch-apple-macosx13.0"
+    slices+=("$(swift build -c release --triple "$arch-apple-macosx13.0" --show-bin-path)/QRnesto")
+  done
+  lipo -create -output "$BIN" "${slices[@]}"
+else
+  swift build -c release
+  BIN="$(swift build -c release --show-bin-path)/QRnesto"
+fi
 
 APP="build/QRnesto.app"
 rm -rf "$APP"
