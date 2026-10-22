@@ -8,7 +8,7 @@ A native macOS app that reads QR codes and decodes their content into readable, 
   - Drop an image file onto the window, or use **Open…** (⌘O)
   - **Paste** an image from the clipboard (⇧⌘V)
   - **Capture Screen** to drag a region of your screen (⇧⌘C)
-  - **Use Camera** for live scanning (⌘K)
+  - **Use Camera** for live scanning (⌘K). It stops by itself after 2 minutes; change this in Settings (⌘,)
 - Finds every QR code in an image, including light-on-dark (inverted) codes.
 - Decodes the payload into labelled fields, each with a copy button:
 
@@ -87,6 +87,7 @@ Sources/
   QRnesto/
     QRnestoApp.swift         App entry point and menu commands
     ScannerModel.swift        State: image, results, camera, screen capture
+    SettingsView.swift        Settings window (camera auto-stop timeout)
     CameraScanner.swift       AVFoundation camera session and preview
     ContentView.swift         SwiftUI window
 ```

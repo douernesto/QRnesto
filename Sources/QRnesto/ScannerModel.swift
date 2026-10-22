@@ -13,6 +13,7 @@ final class ScannerModel: ObservableObject {
     @Published var cameraOn = false
     @Published var mirrored = false
     let camera = CameraScanner()
+    private var timeoutTask: Task<Void, Never>?
 
     func toggleCamera() {
         if cameraOn { stopCamera(); return }
@@ -25,6 +26,7 @@ final class ScannerModel: ObservableObject {
                 try await camera.start()
                 cameraOn = true
                 status = "Point a QR code at the camera."
+                scheduleTimeout()
             } catch CameraScanner.StartError.denied {
                 status = "Camera access denied. Enable it in System Settings › Privacy & Security › Camera."
             } catch CameraScanner.StartError.noCamera {
@@ -37,9 +39,23 @@ final class ScannerModel: ObservableObject {
 
     func stopCamera() {
         guard cameraOn else { return }
+        timeoutTask?.cancel()
         camera.stop()
         cameraOn = false
         status = results.isEmpty ? "Camera stopped." : "Camera stopped. \(results.count) code(s) scanned."
+    }
+
+    private func scheduleTimeout() {
+        timeoutTask?.cancel()
+        let defaults = UserDefaults.standard
+        let seconds = defaults.object(forKey: Prefs.cameraTimeoutKey) as? Int ?? Prefs.defaultCameraTimeout
+        guard seconds > 0 else { return }
+        timeoutTask = Task { [weak self] in
+            try? await Task.sleep(nanoseconds: UInt64(seconds) * 1_000_000_000)
+            guard !Task.isCancelled, let self, self.cameraOn else { return }
+            self.stopCamera()
+            self.status = "Camera stopped automatically after \(seconds) s."
+        }
     }
 
     func remove(_ payload: ParsedPayload) {
