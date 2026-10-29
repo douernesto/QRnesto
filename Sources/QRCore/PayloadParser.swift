@@ -34,6 +34,7 @@ public enum PayloadParser {
         if upper.hasPrefix("TEL:") { return phone(raw, text) }
         if upper.hasPrefix("SMSTO:") || upper.hasPrefix("SMS:") { return sms(raw, text) }
         if upper.hasPrefix("GEO:") { return geo(raw, text) }
+        if isProductCode(text) { return product(raw, text) }
         if let url = URL(string: text), let scheme = url.scheme?.lowercased(),
            ["http", "https"].contains(scheme), url.host != nil { return web(raw, url) }
         if let data = text.data(using: .utf8),
@@ -55,6 +56,20 @@ public enum PayloadParser {
             f.append(Field("Param: \(item.name)", item.value ?? ""))
         }
         return make(raw, "Web link", "link", f, "Open in Browser", url)
+    }
+
+    /// EAN-8, UPC-A, EAN-13 or GTIN-14: all digits with a valid GS1 check digit.
+    private static func isProductCode(_ text: String) -> Bool {
+        let digits = text.compactMap { $0.isASCII ? $0.wholeNumberValue : nil }
+        guard [8, 12, 13, 14].contains(text.count), digits.count == text.count else { return false }
+        let sum = digits.dropLast().reversed().enumerated()
+            .reduce(0) { $0 + $1.element * ($1.offset % 2 == 0 ? 3 : 1) }
+        return (10 - sum % 10) % 10 == digits.last
+    }
+
+    private static func product(_ raw: String, _ text: String) -> ParsedPayload {
+        let type = ["8": "EAN-8", "12": "UPC-A", "13": "EAN-13", "14": "GTIN-14"][String(text.count)]!
+        return make(raw, "Product barcode", "barcode", [Field("Number", text), Field("Format", type)])
     }
 
     private static func wifi(_ raw: String, _ text: String) -> ParsedPayload {

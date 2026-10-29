@@ -4,7 +4,7 @@ import ImageIO
 import Vision
 
 public enum QRDecoder {
-    /// Detects every QR code in the image and returns the raw payload of each.
+    /// Detects every QR code and barcode in the image and returns the raw payload of each.
     /// Retries on a colour-inverted copy because Vision does not read light-on-dark codes.
     public static func decode(_ image: CGImage) -> [String] {
         let found = detect(in: image)
@@ -33,7 +33,6 @@ public enum QRDecoder {
 
     private static func detect(handler: VNImageRequestHandler) -> [String] {
         let request = VNDetectBarcodesRequest()
-        request.symbologies = [.qr, .microQR]
         try? handler.perform([request])
 
         var seen = Set<String>()
