@@ -41,7 +41,7 @@ cat > "$APP/Contents/Info.plist" <<PLIST
 <plist version="1.0"><dict>
   <key>CFBundleName</key><string>QRnesto</string>
   <key>CFBundleDisplayName</key><string>QRnesto</string>
-  <key>CFBundleIdentifier</key><string>com.ppro.qrnesto</string>
+  <key>CFBundleIdentifier</key><string>com.douernesto.qrnesto</string>
   <key>CFBundleExecutable</key><string>QRnesto</string>
   <key>CFBundleIconFile</key><string>AppIcon</string>
   <key>CFBundlePackageType</key><string>APPL</string>

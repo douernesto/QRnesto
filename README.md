@@ -1,6 +1,6 @@
 # QRnesto
 
-A native macOS app that reads QR codes and decodes their content into readable, structured fields.
+A native macOS app that reads QR codes and barcodes and decodes their content into readable, structured fields.
 
 ## Features
 
@@ -9,7 +9,7 @@ A native macOS app that reads QR codes and decodes their content into readable, 
   - **Paste** an image from the clipboard (⇧⌘V)
   - **Capture Screen** to drag a region of your screen (⇧⌘C)
   - **Use Camera** for live scanning (⌘K). It stops by itself after 2 minutes; change this in Settings (⌘,)
-- Finds every QR code in an image, including light-on-dark (inverted) codes.
+- Finds every QR code and barcode (EAN, UPC, Code 128, Data Matrix, PDF417, Aztec and others Vision supports) in an image, including light-on-dark (inverted) codes.
 - Decodes the payload into labelled fields, each with a copy button:
 
   | Content | Fields shown | Action |
@@ -22,6 +22,7 @@ A native macOS app that reads QR codes and decodes their content into readable, 
   | Email (`mailto:`, `MATMSG:`) | To, subject, body | Compose Email |
   | SMS, phone, geo | Number and message, or coordinates | Open in Maps (geo) |
   | JSON | Pretty-printed | |
+  | Product barcode (EAN-8, UPC-A, EAN-13, GTIN-14) | Number, format | |
   | Anything else | Plain text | |
 
 - **Show raw** and **Copy raw** are available for every result.
@@ -82,7 +83,7 @@ Makefile                      Developer commands
 Resources/AppIcon.png         1024x1024 app icon, converted to .icns at build time
 Sources/
   QRCore/
-    QRDecoder.swift           Finds QR codes in images and camera frames (Vision)
+    QRDecoder.swift           Finds QR codes and barcodes in images and camera frames (Vision)
     PayloadParser.swift       Turns a raw payload into labelled fields
   QRnesto/
     QRnestoApp.swift         App entry point and menu commands

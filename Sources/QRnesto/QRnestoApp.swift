@@ -33,7 +33,7 @@ struct QRnestoApp: App {
 
     private func showAbout() {
         let credits = NSMutableAttributedString(
-            string: "Scan QR codes from the camera, an image or your screen, and see what they contain as labelled fields.\n\nEverything is decoded on your Mac. Links are never opened automatically.\n\n",
+            string: "Scan QR codes and barcodes (EAN, UPC, Code 128, Data Matrix, PDF417, Aztec and more) from the camera, an image, the clipboard or your screen, and see what they contain as labelled fields.\n\nEverything is decoded on your Mac. Links are never opened automatically.\n\n",
             attributes: [.font: NSFont.systemFont(ofSize: 11), .foregroundColor: NSColor.labelColor])
         credits.append(NSAttributedString(
             string: "github.com/douernesto/QRnesto",

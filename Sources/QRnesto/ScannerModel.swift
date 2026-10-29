@@ -11,7 +11,7 @@ final class ScannerModel: ObservableObject {
     @Published var status = "Drop an image, paste one, or capture a region of your screen."
 
     @Published var cameraOn = false
-    @Published var mirrored = false
+    @Published var mirrored = true
     let camera = CameraScanner()
     private var timeoutTask: Task<Void, Never>?
 
@@ -25,7 +25,7 @@ final class ScannerModel: ObservableObject {
             do {
                 try await camera.start()
                 cameraOn = true
-                status = "Point a QR code at the camera."
+                status = "Point a QR code or barcode at the camera."
                 scheduleTimeout()
             } catch CameraScanner.StartError.denied {
                 status = "Camera access denied. Enable it in System Settings › Privacy & Security › Camera."
@@ -114,8 +114,8 @@ final class ScannerModel: ObservableObject {
         Task {
             let payloads = await Task.detached { QRDecoder.decode(cg) }.value
             results = payloads.map(PayloadParser.parse)
-            status = payloads.isEmpty ? "No QR code found in this image."
-                : "Found \(payloads.count) QR code\(payloads.count == 1 ? "" : "s")."
+            status = payloads.isEmpty ? "No QR code or barcode found in this image."
+                : "Found \(payloads.count) code\(payloads.count == 1 ? "" : "s")."
         }
     }
 }
